@@ -17,4 +17,15 @@
 // Write in English or Thai. Do not skip this step.
 //
 // Your thinking:
-//
+// 1.ข้อมูล ingredients อยู่ใน collection "ingredients"
+// 2.ต้องการกรองข้อมูล ingredients ที่มี stock_level >= 100.00
+// 3.ใช้ .find() เพื่อหา
+// - ใช้ $gte เพื่อกรองข้อมูลที่มี stock_level มากกว่าหรือเท่ากับ 100.00
+// - ใช้ Decimal128
+// ---------------------------------------------------------------
+
+use("chrome-burger-db");
+
+db.getCollection("ingredients").find({
+  stock_level: { $gte: Decimal128("100.00") },
+});

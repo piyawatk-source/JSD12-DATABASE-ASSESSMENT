@@ -17,4 +17,14 @@
 -- Write in English or Thai. Do not skip this step.
 --
 -- Your thinking:
---
+-- 1.ข้อมูลอยู่ใน table "Staff" และ field "role" ตำแหน่ง 'Cool'
+-- 2.แสดงผลแค่ first_name และ last_name ไม่ต้องแสดง field อื่น
+-- 3.SQL concepts
+-- - SELECT first_name, last_name เลือก column ที่จะแสดง
+-- - FROM Staff ระบุ table ที่จะดึงข้อมูล
+-- - WHERE role = 'Cook' กรองข้อมูลให้แสดงเฉพาะที่ role เป็น Cook
+-- ---------------------------------------------------------------
+
+SELECT first_name, last_name
+FROM Staff
+WHERE role = 'Cook';

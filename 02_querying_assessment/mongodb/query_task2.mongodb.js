@@ -18,4 +18,24 @@
 // Write in English or Thai. Do not skip this step.
 //
 // Your thinking:
-//
+// 1.ข้อมูล orders อยู่ใน collection ที่ชื่อว่า "orders"
+// 2.ข้อมูล staff ก็อยู่ใน order
+// - staff: { first_name: "Jane", last_name: "Doe" }
+// - และใช้ "staff.first_name" และ "staff.last_name" เพื่อค้นหา order ที่เกี่ยวข้องกับ Jane Doe
+// 3.ตแสดงข้อมูลแค่ส่วน order_date และ total_price จะใช้ "projection"
+// - ใส่ 1 แสดง, ใส่ 0 ซ่อน
+// ---------------------------------------------------------------
+
+use("chrome-burger-db");
+
+db.getCollection("orders").find(
+  {
+    "staff.first_name": "Jane",
+    "staff.last_name": "Doe",
+  },
+  {
+    _id: 0,
+    order_date: 1,
+    total_price: 1,
+  },
+);

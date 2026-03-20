@@ -17,4 +17,14 @@
 -- Write in English or Thai. Do not skip this step.
 --
 -- Your thinking:
---
+-- 1.ข้อมูลอยู่ใน table ชื่อ menu_items และมี field ชื่อ category ที่บอกว่าเป็น Side, Burger, หรือ Drink
+-- 2.แสดงผลแค่ name และ price ไม่ต้องแสดง field อื่น
+-- 3.SQL concepts
+-- - SELECT name, price เลือก comlumn ที่จะแสดง
+-- - FROM menu_items ระบุ table ที่จะดึงข้อมูล
+-- - WHERE category = 'Side' กรองข้อมูลให้แสดงเฉพาะที่ category เป็น Side
+-- ---------------------------------------------------------------
+
+SELECT name, price
+FROM MenuItems
+WHERE category = 'Side';

@@ -17,4 +17,17 @@
 -- Write in English or Thai. Do not skip this step.
 --
 -- Your thinking:
---
+-- 1.ชื่อ ingredients อยู่ใน table "Ingredients"
+-- - ชื่อ supplier อยู่ใน table "Suppliers"
+-- - สอง table เชื่อมกันด้วย supplier_id
+-- 2.ใช้ JOIN เชื่อม Ingredients กับ Suppliers ผ่าน supplier_id
+-- 3.SQL concept
+-- - SELECT i.name → ดึงชื่อ ingredient
+-- - JOIN Suppliers → เชื่อมเพื่อเข้าถึงชื่อ supplier
+-- - WHERE s.name = 'Freshest Farm Produce' → กรองเฉพาะ supplier นี้
+-- ---------------------------------------------------------------
+
+SELECT i.name
+FROM Ingredients i
+JOIN Suppliers s ON i.supplier_id = s.supplier_id
+WHERE s.name = 'Freshest Farm Produce';

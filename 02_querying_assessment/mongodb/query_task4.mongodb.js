@@ -18,4 +18,26 @@
 // Write in English or Thai. Do not skip this step.
 //
 // Your thinking:
-//
+// 1.order มี field "total_price" บอกราคารวมของ order นั้นๆ
+// 2.ต้องการบวกรวมทุก total_price เข้าด้วยกัน
+// - ใช้ .aggregate() เพื่อทำการรวมข้อมูล
+// stage 1: ใช้ $group เพื่อรวมข้อมูลทั้งหมดเข้าด้วยกัน (_id: null) แล้ว $sum total_price เพื่อคำนวณยอดรวม
+// stage 2: ใช้ $project ซ่อน _id ออกแสดงแค่ total_revenue
+// ---------------------------------------------------------------
+
+use("chrome-burger-db");
+
+db.getCollection("orders").aggregate([
+  {
+    $group: {
+      _id: null,
+      total_revenue: { $sum: "$total_price" },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      total_revenue: 1,
+    },
+  },
+]);
