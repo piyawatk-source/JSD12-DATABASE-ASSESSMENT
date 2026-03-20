@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chrome & Burger - Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white text-gray-800 font-sans">
+    <header class="shadow-md">
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <h1 class="text-2xl font-bold">Chrome & Burger</h1>
+        <nav class="flex items-center space-x-6">
+          <svg
+            class="w-6 h-6 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.949 8.949 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+          </svg>
+          <a href="index.html" class="text-gray-600 hover:text-blue-500"
+            >Home</a
+          >
+          <a href="menu.html" class="text-gray-600 hover:text-blue-500">Menu</a>
+          <a
+            href="#"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >Order Now</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+      <h1 class="text-4xl font-bold text-center my-12">Our Live Menu</h1>
+      <div
+        id="menu-container"
+        class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+      >
+        <!-- Menu items will be loaded here -->
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-4">
+      <p>&copy; 2025 Chrome & Burger. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // This script will fetch data from our backend and display it.
+
+      // 1. The URL of our backend API
+      const apiUrl =
+        "https://chrome-burger-db-server.onrender.com/api/menu-items";
+
+      // 2. Use the fetch function to get the data
+      fetch(apiUrl)
+        .then((response) => {
+          // Check if the request was successful
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          // Convert the response to JSON
+          return response.json();
+        })
+        .then((menuItems) => {
+          // 3. Get the container where we will display the menu items
+          const menuContainer = document.getElementById("menu-container");
+
+          // 4. Loop through each menu item and create an HTML element for it
+          menuItems.forEach((item) => {
+            const menuItemElement = document.createElement("div");
+            menuItemElement.classList.add(
+              "menu-item",
+              "bg-yellow-400",
+              "rounded-lg",
+              "shadow-md",
+              "overflow-hidden",
+              "text-left"
+            );
+
+            menuItemElement.innerHTML = `
+                        <div class="p-4">
+                            <h4 class="text-2xl font-bold mb-2">${item.name}</h4>
+                            <p class="text-gray-800">${item.description}</p>
+                            <p class="text-gray-800 font-bold mt-2">$${item.price}</p>
+                        </div>
+                    `;
+
+            // 5. Add the new element to our container
+            menuContainer.appendChild(menuItemElement);
+          });
+        })
+        .catch((error) => {
+          // Log any errors to the console
+          console.error("There was a problem with the fetch operation:", error);
+          const menuContainer = document.getElementById("menu-container");
+          menuContainer.innerHTML =
+            "<p>Could not load menu. Make sure the backend server is running and the database connection is configured correctly.</p>";
+        });
+    </script>
+  </body>
+</html>
